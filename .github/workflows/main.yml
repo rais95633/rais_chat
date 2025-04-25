@@ -3,28 +3,34 @@ name: Flutter CI
 on:
   push:
     branches:
-      - main
+      - main  # تأكد من استخدام الفرع الصحيح (مثل main أو master)
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # البيئة المستخدمة للبناء
     steps:
-    - name: Check out repository
-      uses: actions/checkout@v2
+      # التحقق من استنساخ المستودع
+      - name: Check out repository
+        uses: actions/checkout@v2
 
-    - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.0.0'  # اختر نسخة Flutter التي ترغب فيها
+      # إعداد Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.0'  # تأكد من النسخة التي تريد استخدامها
 
-    - name: Install dependencies
-      run: flutter pub get
+      # تثبيت التبعيات
+      - name: Install dependencies
+        run: flutter pub get
 
-    - name: Build APK
-      run: flutter build apk --release
+      # بناء APK
+      - name: Build APK
+        run: flutter build apk --release
 
-    - name: Upload APK
-      uses: actions/upload-artifact@v2
-      with:
-        name: rais-chat-apk
-        path: build/app/outputs/flutter-apk/app-release.apk
+      # رفع الـ APK كـ Artifact
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: rais-chat-apk  # اسم الملف الذي سيتم رفعه
+          path: build/app/outputs/flutter-apk/app-release.apk  # المسار الصحيح للـ APK
+
